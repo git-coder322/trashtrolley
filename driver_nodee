@@ -1,0 +1,108 @@
+
+
+import rospy
+from std_msgs.msg import String
+import RPi.GPIO as GPIO
+obstacle_range = 5;
+max_range = 15;
+distance = 30;
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+pinMotorAPwm = 10
+pinMotorADir = 9
+pinMotorBPwm = 8
+pinMotorBDir = 7
+Frequency = 20
+DutyCycle = 30
+Stop = 0
+define cost_map;
+
+
+GPIO.setup(pinMotorAPwm, GPIO.OUT)
+GPIO.setup(pinMotorADir, GPIO.OUT)
+GPIO.setup(pinMotorBPwm, GPIO.OUT)
+GPIO.setup(pinMotorBDir, GPIO.OUT)
+pwmMotorAPwm = GPIO.PWM(pinMotorAPwm, Frequency)
+pwmMotorADir = GPIO.PWM(pinMotorADir, Frequency)
+pwmMotorBPwm = GPIO.PWM(pinMotorBPwm, Frequency)
+pwmMotorBDir = GPIO.PWM(pinMotorBDir, Frequency)
+pwmMotorAPwm.start(Stop)
+pwmMotorADir.start(Stop)
+pwmMotorBPwm.start(Stop)
+pwmMotorBDir.start(Stop)
+
+
+def Off():
+    pwmMotorAPwm.ChangeDutyCycle(Stop)
+    pwmMotorADir.ChangeDutyCycle(Stop)
+    pwmMotorBPwm.ChangeDutyCycle(Stop)
+    pwmMotorBDir.ChangeDutyCycle(Stop)
+
+
+def Forwards():
+    pwmMotorAPwm.ChangeDutyCycle(DutyCycle)
+    pwmMotorADir.ChangeDutyCycle(Stop)
+    pwmMotorBPwm.ChangeDutyCycle(DutyCycle)
+    pwmMotorBDir.ChangeDutyCycle(Stop)
+
+
+def Backwards():
+    pwmMotorAPwm.ChangeDutyCycle(DutyCycle
+    pwmMotorADir.ChangeDutyCycle(DutyCycle)
+    pwmMotorBPwm.ChangeDutyCycle(DutyCycle)
+    pwmMotorBDir.ChangeDutyCycle(DutyCycle)
+
+def Left():
+    pwmMotorAPwm.ChangeDutyCycle(Stop)
+    pwmMotorADir.ChangeDutyCycle(DutyCycle)
+    pwmMotorBPwm.ChangeDutyCycle(DutyCycle)
+    pwmMotorBDir.ChangeDutyCycle(Stop)
+
+def Right():
+    pwmMotorAPwm.ChangeDutyCycle(DutyCycle)
+    pwmMotorADir.ChangeDutyCycle(Stop)
+    pwmMotorBPwm.ChangeDutyCycle(Stop)
+    pwmMotorBDir.ChangeDutyCycle(DutyCycle)
+
+# Message handler
+#def CommandCallback(commandMessage):
+#    command = commandMessage.data
+#    if command == 'forwards':
+#        print('Moving forwards')
+#        Forwards()
+#    elif command == 'backwards':
+#        print('Moving backwards')
+#        Backwards()
+#    elif command == 'left':
+#        print('Turning left')
+#       Left()
+#    elif command == 'right':
+#       print('Turning right')
+#        Right()
+#    elif command == 'stop':
+#        print('Turning off')
+#       Off()
+#    else:
+#        print('Unknown command, turning offf')
+#        Off()
+
+rospy.init_node('driver')
+rospy.Subscriber('command', String, CommandCallback)
+
+#Left()
+#Right()
+#Forward()
+#Backward()
+#Stop()
+
+if(cost_map == 2) {
+    if(costmap2d.obstacleid == 'true'){ #imprt navstack
+        Obstacle(); #tf and twist commands runs
+}
+}
+
+
+rospy.spin()
+
+Off()
+GPIO.cleanup()
