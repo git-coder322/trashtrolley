@@ -1,4 +1,0 @@
-<launch>
-  <include file="$(find trolley)/launch/includes/teleop.launch.xml" />
-  <include file="$(find trolley)/launch/includes/control.launch.xml" />
-</launch>
